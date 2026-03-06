@@ -25,13 +25,14 @@ Dette notatet handler om aggregering fra flere til én variabel, eller den farge
 
 Dokumentet er ment å gi nyttig bakgrunnsinformasjon og en innføring i viktige konsepter og problemstillinger. Der jeg har følt det nødvendig å komme med personlige meninger eller annbefalninger har jeg forsøkt å gjør dette tydelig ved å skille ut teksten med _kursiv_. og merket med mine initialer (ALK).
 
+# Begreper
 ## Variabel og variabelverdi
 
 En variabel er noe som registreres per polygon, typisk en NiN-variabel eller en Mdir-variabel. Variabelverdien er verdien til denne variabelen i på den opprinnelige måleskalaen (e.g. P8).
 
 ## Normalisering og kvalitetskategori
 
-For å kunne aggregere (altså _kombinere_) variabler må de være på samme måleskala og like verdier i ulike variabler må ha samme tolkning. Altså de må normaliseres. Systemet i dag er å bruke matriser til oversette (_kode om_) variabelverdier til en 5-trinns ordinal skala. Denne skalaen er normativ på den måten at lave verdier er dårlig og høye verdier er bra. Til tross for navnet så er ikke variablene nå omgjort til fra ordinale til kategoriske. De er fortsatt ordinale, og faktisk så ønsker vi at de skal tolkes som en kontinuerlig numerisk variabel. Det betyr at det bør være tilnærmet lik _avstand_ (i form av kvalitet) mellom kvalitateskategori 1 og 2 som det er mellom 4 og 5. Ofte vil normaliseringen fra variabelverdi til kvalitetskategori innbære en ikke-lineær transformering. 
+For å kunne aggregere (altså _kombinere_) variabler må de være på samme måleskala og like verdier i ulike variabler må ha samme tolkning. Altså de må normaliseres. Systemet i dag er å bruke matriser til oversette (_kode om_) variabelverdier til en 5-trinns ordinal skala. Denne skalaen er normativ på den måten at lave verdier er dårlig og høye verdier er bra. Til tross for navnet så er ikke variablene nå omgjort til fra ordinale til kategoriske. Det er tenkt at dette skal være en intervallskala. Det betyr at det bør være tilnærmet lik _avstand_ (i form av kvalitet) mellom kvalitateskategori 1 og 2 som det er mellom 4 og 5. Ofte vil normaliseringen fra variabelverdi til kvalitetskategori innbære en ikke-lineær transformering. 
 
 _ALK: Dette systemet ser ut til å funke veldig greit og det  blant annet svært fleksibelt med tanke på ulike transformeringer, inkludert reversering, dvs. at høye variabelverdier for påvirkningsfaktorer gir lave kvalitetskategorier._ 
 
@@ -48,9 +49,11 @@ En aggregering betyr her å kombinere flere variabler, på den normaliserte kval
 
 Aggregering han gjøres direkte ( i en operasjon - ett trinn) eller hierarkisk (dvs. i flere etterfølgende trinn). @fig-dagens viser den aggregeringsmetoden som ligger inne som forslag i dag. Her er det en direkte aggregering gjennom en middleverdi, og som middelverdi er det brukt vektet aritmatisk gjennomsnitt. I tillegg er det tenkt brukt en løsning for _vippevariabler_ for utvalgte variabler som bare skal kunne telle positivt på lokalitetskvaliteten. Dvs. at lave verdier for disse vippevariablene ikke skal telle negativt, men høye verdier skal telle positivt. Dettte blir en slags hierarkisk aggregering.
 
-# Kompensasjon
+# Tre sentrale designvalg
 
-Begrepet med kompensasjon er viktig, altså i hvor stor grad veldig høye verdier i én variabel skal kunne kompensere for lave verdier i andre variable. Om man har høy grad av kompensasjon så løfter man fram det som er bra og ignorer i større grad det som er dårlig. Når kompensasjonen blir veldig høy, så nærmer vi oss en _beste styrer_ type aggregering. Motsatsen til kompenasjon er verste-styrer, men det er egentlig en gradient i hvor stor grad aggregeringsfunksjoner lar seg påvirke av lav verdier. I den [generelle middlefunksjonen](https://people.revoledu.com/kardi/tutorial/BasicMath/Average/Minkowski%20mean.html) kan man endre på parameteren 'R' og få funskjoner lik eller tilnærmet lik kjente funskjoner som aritmetisk og geometrisk gjennomsnitt (@tbl-sammenligning). 
+## Kompensasjon
+
+Begrepet med kompensasjon er viktig, altså i hvor stor grad veldig høye verdier i én variabel skal kunne kompensere for lave verdier i andre variable. Om man har høy grad av kompensasjon så løfter man fram det som er bra og ignorer i større grad det som er dårlig. Når kompensasjonen blir veldig høy, nærmer aggregeringen seg en beste-styrer-regel. Motsatsen til kompenasjon er verste-styrer, men det er egentlig en gradient i hvor stor grad aggregeringsfunksjoner lar seg påvirke av lav verdier. I den [generelle middlefunksjonen](https://people.revoledu.com/kardi/tutorial/BasicMath/Average/Minkowski%20mean.html) kan man endre på parameteren 'R' og få funskjoner lik eller tilnærmet lik kjente funskjoner som aritmetisk og geometrisk gjennomsnitt (@tbl-sammenligning). 
 
 {{< pagebreak >}}
 
@@ -127,9 +130,11 @@ knitr::include_graphics("img/dagens.png")
 
 
 
-### Hierarkisk aggregering {#hier}
+## Struktur {#hier}
 
-Jeg fører hierarkisk aggregering under vekting siden tanken med dette er å kunne kombinere utvalg av variablene til grupper slik at man kan kontrolere for den relative vektingen mellom gruppene. Jeg kaller disse gruppene for _dimensjoner_. I MI, slik instruksen brukes i dag, er det en hierarksik aggregering med to dimensjoner: tilstand og bimangfold. Valg av dimensjoner er viktig, og det er flere innganger til hvordan og hvorfor disse bør defineres.
+Med struktur mener jeg om man skal aggregere direkte eller i flere steg, dvs. hierarkisk.
+ 
+Valget om å bruke hierarkisk aggregering henger sammen med ønsket om å gjøre en form for vekting. Tanken med dette er å kunne kombinere variablene til grupper slik at man kan kontrolere for den relative vektingen mellom gruppene. Jeg kaller disse gruppene for _dimensjoner_. I MI, slik instruksen brukes i dag, er det en hierarksik aggregering med to dimensjoner: tilstand og bimangfold. Valg av dimensjoner er viktig, og det er flere innganger til hvordan og hvorfor disse bør defineres.
 
 @fig-hierarkisk viser en variant av hierarkisk aggregering med tre dimensjoner, der dimensjonene grovt sett tilsvarer den gamle _tilstandsdimensjonen/-aksen_ (der de fleste variablene var påvirkningsvariabler og ikke tilstandsvariabler) og biomangfoldsdimansjonen/-aksen (utvidet til å inkludere geomangfold, for å være politisk korrekt). I tillegg har jeg tatt med en gruppe for _begrensende faktorer_. De tre gruppene, eller dimensjonene, bruker en ulik aggregeringsfunksjon. (Merk at ingen av de bruker aritmetisk gjennomsnitt.) Under den neste overskriften vil jeg beskrive noen fordeleg og ulemper med ulike aggregeringsfunksjoner (@sec-func). 
 
@@ -152,33 +157,50 @@ knitr::include_graphics("img/hierarkisk.png")
 knitr::include_graphics("img/hierarkisk2.png")
 ```
 
-### Aggregeringsfunksjoner {#sec-func}
+# Aggregeringsfunksjoner {#sec-func}
 
 Det finnes utallige måter å aggregere variabler på (se @tbl-sammenligning og husk at 'R' kan ta hviklen som helst verdi). Jeg begrenser meg allikevel til et utvalg som jeg tenker er de mest relevante.
 
-#### Aritmetisk gjennomsnitt
+## Aritmetisk gjennomsnitt
 
 Dette er en type middelverdi, og den mest kjente sådann. Det er hva man tenker på som _å ta snittet av noe_. En lignende metode, bare for aggregering av fordelinger og ikke enkeltverdier, er resampling. Denne typen middleverdi brukes i beregning av indekser i Naturindeks og Økologisk tilstand. Begge disse indeksene harsom mål å beskrive _gjennomsnittlig tilstand_ over realtivt store arealer. Dette skiller seg fra vårt mål om å beskrive _kvalitet_ på relativt små arealer. Aritmetisk gjennomsnitt har middels kompensering som gjør det mulig å _kompensere_ for veldig lave verdier i en variabel, med veldig høye verdier for en annen variabel (og motsatt). Hvis en slik kompensering ikke er ønskelig, bør aritmetisk gjennomsnitt ikke brukes.   
 
-#### Beste-styrer og verste-styrer
+## Beste-styrer og verste-styrer
 
 Disse er relativt enkle: i beste-styrer er det variabelen med beste (høyeste) verdi (kvalitetskategori) som styrer og i verste-styrer er det motsatt. Variabler som ikke er hhv- høyeste eller lavest bli ikke tatt med i beregningene videre. Verste-styrer brukes blant annet i vannforskriften. Metoden bygger på et _føre-var_ prinsipp og gir en konservativ vurdering av tilstand i vannforekomster. 
 
-Beste-styrer har jeg ikke noen eksmpler på at er brukt. Metoden er spesielt relevant når man har flere variabler der verdien oftest er lav, for eksempel pga lav deteksjonsrate som på sopp pg rødlistearter, og der variablene ofte samvarierer og kan være indikatorer på hverandre. For eksmepel, har du mye død ved så kan dette en indikator på biodiversitet, og da bør det kanskje ikke gjøre noe om du ikke fant noen rødlistearter den dagen. Og motsatt, finner du mange rødlistearter, så gjør det kanskje ikke noe at det er lite dødved, siden det tydeligvis er noe annet ved lokaliteten som gir høy habitatsverdi.
+Beste-styrer har jeg ikke noen eksmpler på at er brukt. Metoden er spesielt relevant når man har flere variabler der verdien oftest er lav, for eksempel pga lav deteksjonsrate som på sopp pg rødlistearter, og der variablene ofte samvarierer og kan være indikatorer på hverandre. For eksempel, har du mye død ved så kan dette en indikator på biodiversitet, og da bør det kanskje ikke gjøre noe om du ikke fant noen rødlistearter den dagen. Og motsatt, finner du mange rødlistearter, så gjør det kanskje ikke noe at det er lite dødved, siden det tydeligvis er noe annet ved lokaliteten som gir høy habitatsverdi. Vi kan vi at når det er høy indikatorredundans substituerbarhet eller samvariasjon så er betse-styrer et godt alternativ.
 
 Beste-styrer brukes i @fig-hierarkisk og @fig-hierarkisk2 for biomangfoldsvariablene, og det er kanskje helst der denne aggregeringsfunksjonen har sin nytte. Bruken av beste-styrer kan delvis erstatte det som har vært hensikten med vippevaribler, nemlig at lave verdier for noen variabler ikke skal trekke ned lokalitetskvaliteten.
 
 Disse to aggregeringsfunksjonene er regelstyrte (man forkaster alle verdier som ikke er den laveste eller høyeste), men man også velge å definere dette mer nyansert slik alle variablene teller med i beregingen, men at det er de veldig høye eller veldig lave som teller mest (@tbl-sammenligning).
 
 
-#### Geometrisk gjennomsnitt
+## Geometrisk gjennomsnitt
 
 Et geometrisk gjennomsnitt gir høyere vekt på lave verdier, og er derfor mer konservativ enn aritmetisk gjennomsnitt. Om man ønsker å frmeheve de dårlige kvalitetene ved en forekomst, så er dette en bedre løsning. Den brukes blant annet i i [Human Developemt Index](https://hdr.undp.org/data-center/human-development-index#/indicies/HDI), som byttet fra aritmetisk til geometrisk gjennomsnitt nettopp av denne grunnen at de ønsket mindre kompensering.
 
+## Matriser {#sec-matriser}
 
-#### Samlet belastning
+MI bruker i dag en aggregreing av to dimensjoner, biomangfold og tilstand, ved hjelp av en matrise (@fig-matrise). Dette gir en mer detaljert kontroll på vektingen mellom dimensjonene. I dette eksempelet er vektingen lik mellom de aksene og matrisen får dermed et symetrisk uttrykk, men slik trenger de ikke være. Et eksempel på en matrise der aksene har ulik vekt kan være matrisen fra aggregeringen av de tre variablene som utgjør naturskogsnærhet (@fig-matrise2).
 
-Dette er ikke egentlig en aggregeringsfunskjon, slik som de øvrige, men heller et begrep fra bærekraftsforskning og lignende fagfelt. Tenken er at menneskelig påvirkning på økosystemene _bygger på hverandre_, at de er additive, og at påvirkningen akkumuleres etter hvert som flere påvirkninger bli gjeldende. Det er ulike måter å beregne samplet belastning på. Den mest intuitive og enkle er å summere sammen variabler. I noen tilfeller kan dette fungere, hvis virkningen av variablene faktisk er additiv. En annen tilnærming er å definere en ny sammensatt variabel der man med noen gitte regler, kombinere flere variabler til en. Ett eksempel på en sammensatt variabel som vi har i dag er _naturskogsnærhet_, selv om denne heller beskriver et positiv egenskap og ikke en belastning eller negativ påvirkning. 
+Merk at i @fig-matrise gir noen kombinasjoner av akseverdier konservative utfall med liten kompensasjon (verdien i cellen trekkes mot den laveste av de to aksene), mens andre deler av matrisen gjør motsatt og har stor grad av kompensasjon. Dette kan være gjennomtenkt og lurt, men det er også ganske subjektivt. Aksene behandles som kategoriske variabler der de kunne vært behandlet som kontinuerlige.
+
+```{r fig-matrise}
+#| fig-cap: 'Aggregeringsmatrise fra MI'
+#| echo: false
+knitr::include_graphics("img/matrise.png")
+```
+
+```{r fig-matrise2}
+#| fig-cap: 'Eksempel på ikke-symetrisk aggregeringsmatrise. Fra NIBIO RAPPORT | VOL. 11 | NR. 129 | 2025.'
+#| echo: false
+knitr::include_graphics("img/matrise2.png")
+```
+
+## Samlet belastning
+
+Dette er ikke egentlig en aggregeringsfunskjon, slik som de øvrige, men heller et begrep fra bærekraftsforskning og lignende fagfelt. Tenken er at menneskelig påvirkning på økosystemene _bygger på hverandre_, at de er additive, og at påvirkningen akkumuleres etter hvert som flere påvirkninger bli gjeldende. Det er ulike måter å beregne samplet belastning på. Den mest intuitive og enkle er å summere sammen variabler. I noen tilfeller kan dette fungere, hvis virkningen av variablene faktisk er additiv. En annen tilnærming er å definere en ny sammensatt variabel der man med noen gitte regler, kombinere flere variabler til en. Ett eksempel på en sammensatt variabel som vi har i dag er _naturskogsnærhet_, selv om denne heller beskriver et positiv egenskap og ikke en belastning eller negativ påvirkning. En måte å lage en sammensatt variabel på er ved hjelp av metriser (se @sec-matriser).
 
 Et eksempel til kommer fra økologisk tilstand, der indikatorene slitasje og kjørespor ble kombinert til [én variabel](https://ninanor.github.io/ecosystemCondition/slitasje.html). Den fysiske terrengskaden som registreres gjennom disse to variablene bli ofte fordelt mellom de to variablene av kartlegger i felt. Men intuitivt så skjønner vi at det er den kombinerte verdien av disse to variablene som er relevant å beskrive. Og så er det kanskje ikke så lett som å summere de to variablene, siden måleskalene ikke er kontinuerlige. 
 
@@ -192,12 +214,6 @@ Eksempel S1 i @tbl-examples viser en lokalitet med lave verdier for påvirkning 
 
 Aggregeringsløypen som tilsvarer raden _Hier.ulike_ i @tbl-examples er ganske tilsvarende samme som i @fig-hierarkisk2. Påvirkningsvariablene aggregeres med et geometrisk gjennomsnitt som gir lave verdier litt mer vekting. Biomangfoldsvariablene aggregeres med verste'styrer, slik at for S4 for eksempel, så er det kun den høystskårende variabelen på biomangfold som teller med i lokalitetskvaliteten. Variabler som er betegnet som begrensende faktorer overstyrer det aritmetiske gjennomsnittet av påvirkningsvariablene og biomangfoldvariablene dersom den har lavere verdi. Dette skjer kun i S2. 
 
-
-# Konklusjon
-
-- Ulike aggregeringsløyper kan gi helt forskjelige svar på lokalitetskvalitet og det må tenkes nøye gjennom hva man ønsker at denne lokalitetsverdien skal vise. Skal det være et poeng å vise fra med gode ved en lokalitet, eller å vise fram det dårlige. Eller en kombinasjon, slik jeg har vist i @fig-hierarkisk2 og i siste rad i @tbl-examples. Dette hanger nøye sammen med konseptet om kompensasjon.
-- Aritmetisk gjennomsnitt gjør det vanskelig å oppnå svært gode eller svært lave lokalitetskvalitatsverdier. Når antallet variabler øker, går denne muligheten faktisk mot null.
-- Vekting av enkeltindikatorer er en vanskelig oppgave med store sjanser for ulik tokning av oppgaven. Resultatet kan i alle tilfeller utfordres og kritiseres for manglende objektivitet. Hierarksik aggregering represneterer også verdivalg, men det gjøres på et høyere teoretisk plan (vekting mellom dimensjonene) og er derfor lettere å forsvare og argumentere for. 
 
 
 {{< pagebreak >}}
@@ -260,3 +276,10 @@ dat_final |>
   kableExtra::row_spec(5, hline_after = TRUE) |>
   kableExtra::pack_rows("Metode", 6, 8)
 ```
+
+
+# Konklusjon
+
+- Ulike aggregeringsløyper kan gi helt forskjelige svar på lokalitetskvalitet og det må tenkes nøye gjennom hva man ønsker at denne lokalitetsverdien skal vise. Skal det være et poeng å vise fra med gode ved en lokalitet, eller å vise fram det dårlige. Eller en kombinasjon, slik jeg har vist i @fig-hierarkisk2 og i siste rad i @tbl-examples. Dette hanger nøye sammen med konseptet om kompensasjon.
+- Aritmetisk gjennomsnitt gjør det vanskelig å oppnå svært gode eller svært lave lokalitetskvalitatsverdier. Når antallet variabler øker, går denne muligheten faktisk mot null.
+- Vekting av enkeltindikatorer er en vanskelig oppgave med store sjanser for ulik tokning av oppgaven. Resultatet kan i alle tilfeller utfordres og kritiseres for manglende objektivitet. Hierarksik aggregering represneterer også verdivalg, men det gjøres på et høyere teoretisk plan (vekting mellom dimensjonene) og er derfor lettere å forsvare og argumentere for. 
