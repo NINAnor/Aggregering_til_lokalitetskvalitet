@@ -286,6 +286,66 @@ dat_final |>
 ```
 
 
+# Forslag til beregningsmodell
+
+Dette er  ikke de første forslagene, men heller en syntese etter ganske mye diskusjoner i gruppa. 
+Det vises tre forslag i dette kapitelet, men de to første er med kun for å gjøre argumentet for forslag C tydeligere.  
+
+Det ble fremmet et ønske om at ulike naturtyper skulle ha ulikt _utgangspunkt_, forskjellig fra null, som deretter kunne justeres opp eller ned avhengig av variablene. 
+Dette skulle gjøre det mulig å skåre høy kvalitet også i naturtyper der det ikke funnes spesielt mye biologisk mangfold.
+Positive variabler, tilsvarende den gamle biomangfoldsaksen, skulle kunne trekke kvaliteten oppover fra utgangspunktet, 
+mens negative variabler tilsvarende den gamle tilstandsaksen, skulle kunne trekke ned. 
+
+Et motargument til dette var at man ikke ønsket å definere et slikt utgangspunkt, 
+men heller at man målte det gjennom en eller et sett variabler som en vurderte som spesielt viktig. 
+Det var også et argument at konseptet med naturnærhet er såpass grunnleggende at det fortjener sin egen dimensjon, og at det kanskje kunne brukes til å definere nettopp dette utgangspunktet. 
+
+Forslag A forsøker å kombinere disse ønskene i en felles beregnningsmodell (@fig-A). Det er ønskelig at alle variabler kan normaliseres på en fem-trinns intervallskala [0, 4]. I dette eksemepel, hvor det ikke brukes noe addisjon er middelsfunksjoner, så kunne man brukt verdier [1, 5], men det er mest fornuftig matematisk sett at skalaen starter på null.
+
+Hovedvariabler aggregeres til et _utgangspunkt_. Det kan kanskje kalles en _grunnskår_?
+Hovedvariablene er variabler som setter selve premisset for å vurdere kvaliteten til en lokalitet. 
+Man kan tenke seg at dette representerer _potensialet_ til en lokalitet. 
+Om en ikke har noen variabler som synes å passe til denne kategorien, så settes utgangspunktet til 2, slik at lokaliteteskvalitberegningene for denne naturtypen sentreres med positive variabler som trekker opp, og negative som trekker ned.   
+De positive variablene aggregeres til en positiv justeringsverdi. 
+Det virker som om det var en enighet om at beste-styrer kunne fungere til denne aggregeringen, siden man i det tilfellet ikke blir påvirket av antall variabler gjennom sentralgrenseprinsippet. 
+De negative variablene aggregeres tilsvarende til en negativ justeringsverdi, eksempelvis med verste styrer, eller ved at man lager en ny samlevariabel som representerer en _samlet belastning_.
+Den negative justeringsverdien overstyrer mellomberegningstrinnet etter aggregeringen av utgangspuntet og den positive justeringverdien. 
+Dette kan gi negative variabler stor innflytelse, men verste styrer er trolig nødvendig for at en skal få tatt i bruk hele skalaen. 
+En slik problemstillig, om det oppstår, kan kanskje løses ved å innlemme den gjeldende variabelen som hovedvariabel. En annen løsning er å la de negative og positive variablene bytte plass i rekkefølgen. Dette er vist i forslag B (@fig-B). 
+Men det er ikke så lett å begrunne hvorfor man velger en rekkefølge og ikke en annen.
+Det blir med andre ord litt tilfeldig; noe vi ikke ønsker. Forslag C (@fig-C) likestiller de positive og de negative variablene, slik at det er den samlede effekten av disse to som brykes for å justere grunnskåren. 
+
+Det er en fordel om hovedvariablene er samvarierte med de øvrige variablene. Disse skal brukes for å fange opp fenomener som ikke alltid er der, og som gjerne har fordelinger med ganske lange haler, slik som rødlistearter eller kjørespor.  
+
+Forslag A-C har noen likheter med dagens model (@fig-MI). Hovedvariablene kan være en parallel til primærvariabler; positive variabler kan være en parallel til sekundære biomangfoldsvariabler, og de negative variablene kan være en parallel til de sekundære tilstandsvariablene. 
+Noe av det som er nytt er at de sekundære variablene har større handlingsrom, og kan påvirke mye mer enn kun ett trinn opp eller ned. 
+En annen forskjell er at aggregeringen ikke bruker kategoriske matriser, men forsøker å holde seg til enkle aritmetriske funksjoner, inkludert max og min.
+Det er heller ikke tenkt at det skal kommuniseres noen verdier utover lokalitetskvaliteten, samt variabelverdiene på de opprinnelige måleskalaene. 
+Altså, mellomberegninger og normaliserte variabelverdier kommuniseres ikke som et resultat.
+     
+
+```{r fig-A}
+#| echo: false
+#| fig-cap: 'Beregnningsmodell - forslag A. Forslaget har tre dimensjoner. Om det ikke finnes variabler for en dimensjon, brukes defaultverdien (0, 2 eller 4). Positive variabler (alt. _eksepsjonelt mangfold_) overstyrer utgangspunktet fra hovedvariablene dersom en av disse skårer høyere enn dette utgangspunktet. Hvis ikke, består verdien fra utgangspunktet (alt. _grunnskår_). Negative variabler overstyrer denne verdien igjen, dersom den negative justeringsverdien er lavere. '
+knitr::include_graphics("img/forslag1.png")
+```
+
+```{r fig-B}
+#| echo: false
+#| fig-cap: 'Beregnningsmodell - forslag B. Figuren tilsvarer foregående figur, men de negative og positive variablene har bytte plass i rekkefølgen.'
+knitr::include_graphics("img/forslag2.png")
+```
+
+```{r fig-C}
+#| echo: false
+#| out-width: "90%"
+#| fig-cap: 'Beregningsmodell  - forslag C. Hovedvariablene brukes for å fastsette en grunnskår. Denne brukes deretter til å trunkere de positive og negative variablene. Når de positive og negative variblene så kombineres blir verdien lik som grunnskåren dersom ingen av disse er forskjellige fra grunnskåren, eller de er like forskjelleig, men i hver sin retning.'
+knitr::include_graphics("img/forslag3.png")
+```
+
+
+{{< pagebreak >}}
+
 # Konklusjon
 
 - Ulike aggregeringsløyper kan gi helt forskjellige svar på lokalitetskvalitet og det må tenkes nøye gjennom hva man ønsker at denne lokalitetsverdien skal vise. Skal det være et poeng å vise fram det gode ved en lokalitet, eller å vise fram det dårlige. Eller en kombinasjon, slik jeg har vist i @fig-hierarkisk2 og i siste rad i @tbl-examples. Dette henger nøye sammen med konseptet om kompensasjon.
