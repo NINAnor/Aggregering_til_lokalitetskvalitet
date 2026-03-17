@@ -286,6 +286,13 @@ dat_final |>
 ```
 
 
+
+# Foreløbige konklusjoner
+
+- Ulike aggregeringsløyper kan gi helt forskjellige svar på lokalitetskvalitet og det må tenkes nøye gjennom hva man ønsker at denne lokalitetsverdien skal vise. Skal det være et poeng å vise fram det gode ved en lokalitet, eller å vise fram det dårlige. Eller en kombinasjon, slik jeg har vist i @fig-hierarkisk2 og i siste rad i @tbl-examples. Dette henger nøye sammen med konseptet om kompensasjon.
+- Aritmetisk gjennomsnitt gjør det vanskelig å oppnå svært gode eller svært lave lokalitetskvalitatsverdier. Når antallet variabler øker, går denne muligheten faktisk mot null.
+- Vekting av enkeltindikatorer er en vanskelig oppgave med store sjanser for ulik tolkning av oppgaven. Resultatet kan i alle tilfeller utfordres og kritiseres for manglende objektivitet. Hierarksik aggregering representerer også verdivalg, men det gjøres på et høyere teoretisk plan (vekting mellom dimensjonene) og er derfor lettere å forsvare og argumentere for. 
+
 # Forslag til beregningsmodell
 
 Dette er  ikke de første forslagene, men heller en syntese etter ganske mye diskusjoner i gruppa. 
@@ -321,7 +328,7 @@ Forslag A-C har noen likheter med dagens model (@fig-MI). Hovedvariablene kan v�
 Noe av det som er nytt er at de sekundære variablene har større handlingsrom, og kan påvirke mye mer enn kun ett trinn opp eller ned. 
 En annen forskjell er at aggregeringen ikke bruker kategoriske matriser, men forsøker å holde seg til enkle aritmetriske funksjoner, inkludert max og min.
 Det er heller ikke tenkt at det skal kommuniseres noen verdier utover lokalitetskvaliteten, samt variabelverdiene på de opprinnelige måleskalaene. 
-Altså, mellomberegninger og normaliserte variabelverdier kommuniseres ikke som et resultat.
+Altså, mellomberegninger og normaliserte variabelverdier kommuniseres ikke som et resultat. @tbl-regne viser noen regneeksempler basert på beregningsmodell C.
      
 
 ```{r fig-A}
@@ -340,14 +347,16 @@ knitr::include_graphics("img/forslag2.png")
 #| echo: false
 #| out-width: "90%"
 #| fig-cap: 'Beregningsmodell  - forslag C. Hovedvariablene brukes for å fastsette en grunnskår. Denne brukes deretter til å trunkere de positive og negative variablene. Når de positive og negative variblene så kombineres blir verdien lik som grunnskåren dersom ingen av disse er forskjellige fra grunnskåren, eller de er like forskjelleig, men i hver sin retning.'
+
 knitr::include_graphics("img/forslag3.png")
+
+```
+
+```{r tbl-regne}
+#| echo: false
+#| tbl-cap: 'Regneeksempler baert på beregningsmodell C'
+
+knitr::include_graphics("img/regneeksempler.png")
 ```
 
 
-{{< pagebreak >}}
-
-# Konklusjon
-
-- Ulike aggregeringsløyper kan gi helt forskjellige svar på lokalitetskvalitet og det må tenkes nøye gjennom hva man ønsker at denne lokalitetsverdien skal vise. Skal det være et poeng å vise fram det gode ved en lokalitet, eller å vise fram det dårlige. Eller en kombinasjon, slik jeg har vist i @fig-hierarkisk2 og i siste rad i @tbl-examples. Dette henger nøye sammen med konseptet om kompensasjon.
-- Aritmetisk gjennomsnitt gjør det vanskelig å oppnå svært gode eller svært lave lokalitetskvalitatsverdier. Når antallet variabler øker, går denne muligheten faktisk mot null.
-- Vekting av enkeltindikatorer er en vanskelig oppgave med store sjanser for ulik tolkning av oppgaven. Resultatet kan i alle tilfeller utfordres og kritiseres for manglende objektivitet. Hierarksik aggregering representerer også verdivalg, men det gjøres på et høyere teoretisk plan (vekting mellom dimensjonene) og er derfor lettere å forsvare og argumentere for. 
