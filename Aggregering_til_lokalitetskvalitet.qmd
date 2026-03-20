@@ -328,7 +328,8 @@ Forslag A-C har noen likheter med dagens model (@fig-MI). Hovedvariablene kan v�
 Noe av det som er nytt er at de sekundære variablene har større handlingsrom, og kan påvirke mye mer enn kun ett trinn opp eller ned. 
 En annen forskjell er at aggregeringen ikke bruker kategoriske matriser, men forsøker å holde seg til enkle aritmetriske funksjoner, inkludert max og min.
 Det er heller ikke tenkt at det skal kommuniseres noen verdier utover lokalitetskvaliteten, samt variabelverdiene på de opprinnelige måleskalaene. 
-Altså, mellomberegninger og normaliserte variabelverdier kommuniseres ikke som et resultat. @tbl-regne viser noen regneeksempler basert på beregningsmodell C.
+Altså, mellomberegninger og normaliserte variabelverdier kommuniseres ikke som et resultat. 
+<!-- @tbl-regne viser noen regneeksempler basert på beregningsmodell C. -->
      
 
 ```{r fig-A}
@@ -354,6 +355,7 @@ knitr::include_graphics("img/forslag3.png")
 
 ```{r tbl-regne}
 #| echo: false
+#| include: false
 #| tbl-cap: 'Regneeksempler baert på beregningsmodell C'
 
 knitr::include_graphics("img/regneeksempler.png")
